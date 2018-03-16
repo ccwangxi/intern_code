@@ -1,13 +1,13 @@
 #########################
-## Author: Xi Wang
+## Author: XXXXXX
 ## Date: 2018/03/01
 ## Title: Add genename to vep table
 #########################
 library(dplyr)
 library(biomaRt)#get gene name
 
-anndir <- "/data1/workspace/DCI/Kirsch/Chang-Lung.Lee/WES_2018/Results/VEP/vep_output/"
-outdir <- "/data1/workspace/DCI/Kirsch/Chang-Lung.Lee/WES_2018/Analysis/Xi_VEP/"
+anndir <- ##########
+outdir <- ###########
 
 files <- list.files(path=anndir, pattern = '.tsv') #VEP table genereted by Dadong
 mouse <- useMart("ensembl", dataset="mmusculus_gene_ensembl")
