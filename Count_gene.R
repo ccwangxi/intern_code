@@ -1,32 +1,26 @@
 #########################
-## Author: Xi Wang
+## Author: XXXXXX
 ## Date: 2018/03/14
 ## Title: Tables of counts of variants 
 ## for each experimental group/subgroup (excluding KRAS unirradiated)
+## Recurring genelist for each subgroup
 #########################
 library(dplyr)
 library(biomaRt)#get gene name
 library(readxl)
 
-outdir1 <- "/data1/workspace/DCI/Kirsch/Chang-Lung.Lee/WES_2018/Analysis/Xi_Heatmap/"
-count_outdir <- '/data1/workspace/DCI/Kirsch/Chang-Lung.Lee/manuscript/WES/count_table/'
+outdir1 <- ############
+count_outdir <- ###########
 
 ######WES_2018 (Sarcoma & lymphoma)
-anndir1 <- "/data1/workspace/DCI/Kirsch/Chang-Lung.Lee/WES_2018/VEP/mutect2_PASS_VEP/"
+anndir1 <- #############
 ######Sarcoma
-anndir2 <- "/data1/workspace/DCI/Kirsch/Chang-Lung.Lee/Sarcoma_WES/VEP/mutect2_PASS_VEP/"
+anndir2 <- #############
 ######lymphoma group3
-anndir3 <- "/data1/workspace/DCI/Kirsch/Chang-Lung.Lee/WholeExome/VEP/mutect2_PASS_VEP/"
+anndir3 <- #############
 
-## Select terms based on Chang-Lung's preferred VEP terms (email 7/27/17)
-CLannlevs1 <- c('transcript_ablation', 'frameshift_variant', 
-  'start_lost', 'stop_gained', 
-  'splice_region_variant',
-  'splice_acceptor_variant',
-  'splice_donor_variant', 
-  'incomplete_terminal_codon_variant',
-  'stop_lost', 'missense_variant',
-  'inframe_deletion', 'inframe_insertion')
+## Select terms based on preferred VEP terms 
+CLannlevs1 <- ###########
 #############################    VEP    ########################################
 
 get_veppass <-function(anndir,file){
@@ -136,8 +130,8 @@ ssplit<-function(s, sp="\\-", n=1){
     sapply(s, function(x) strsplit(x, sp)[[1]][n])
 }
 
-pfiledir1 <- "/data1/workspace/DCI/Kirsch/Chang-Lung.Lee/WES_2018"
-pfile1 <- file.path(pfiledir1, "Data/Lee_WES_samplelist_Group4_20180202.xlsx")
+pfiledir1 <- ###########
+pfile1 <- file.path(pfiledir1, #########)
 tools::md5sum(pfile1)
 pdat1 <- data.frame(read_excel(pfile1))%>%
     mutate(sample1=ssplit(Code, n=2), 
@@ -150,8 +144,8 @@ pdat1 <- data.frame(read_excel(pfile1))%>%
     unique
 
 
-pfiledir2 <- "/data1/workspace/DCI/Kirsch/Chang-Lung.Lee/Sarcoma_WES/Data/"
-pfile2 <- paste0(pfiledir2, "Kirsch_WES_sarcoma_20171116.xlsx")
+pfiledir2 <- #############
+pfile2 <- paste0(pfiledir2, ###########)
 pdat2 <- data.frame(read_excel(pfile2, col_names=TRUE)) %>%
     mutate(id = substring(SAMPLE_ID,1, 4),
            Genotype = Sarcoma.genotype,
@@ -159,8 +153,8 @@ pdat2 <- data.frame(read_excel(pfile2, col_names=TRUE)) %>%
     dplyr::select(id, Genotype, type) %>%
     unique
 
-pfiledir3 <- "/data1/workspace/DCI/Kirsch/Chang-Lung.Lee/manifest/"
-pfile3 <- paste0(pfiledir3, "Kirsch_Lab_lymphoma__with_fastq_names_04-20-17.xlsx")
+pfiledir3 <- ###############
+pfile3 <- paste0(pfiledir3, ###########)
 pdat3 <- data.frame(read_excel(pfile3, col_names=TRUE)) %>%
          filter(Group_num == 'Group3') %>%
          mutate(id = as.character(Patient),
